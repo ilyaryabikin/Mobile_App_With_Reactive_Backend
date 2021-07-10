@@ -3,8 +3,8 @@
 ## Description
 
 This project consists of two modules:
-- [Mobile app] (mobile/)
-- [Reactive backend] (backend/)
+- [Mobile app](mobile/)
+- [Reactive backend](backend/)
 
 Mobile application is written in `Dart` with `Flutter` framework.
 
