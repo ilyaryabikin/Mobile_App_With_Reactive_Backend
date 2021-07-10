@@ -1,0 +1,1 @@
+enum Status { UNKNOWN, WAITING, SUCCESS, ERROR }
