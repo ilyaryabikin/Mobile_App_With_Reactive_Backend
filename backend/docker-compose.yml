@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  mongo:
+    image: mongo:4.4-bionic
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: mobile
+    ports:
+      - '9017:27017'
+
+  mongo-express:
+    image: mongo-express:latest
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_SITE_BASEURL: /
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+    ports:
+      - '9081:8081'

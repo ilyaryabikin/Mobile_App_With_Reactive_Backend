@@ -1,0 +1,9 @@
+FROM adoptopenjdk/openjdk16-openj9:alpine-jre
+
+RUN apk add --no-cache wget
+RUN wget -t inf https://github.com/eficode/wait-for/releases/download/v2.1.2/wait-for
+RUN chmod +x ./wait-for
+
+COPY build/libs/mobile-server-1.0.jar /server-1.0.jar
+
+ENTRYPOINT exec ./wait-for mongo:27017 -- java -jar /server-1.0.jar

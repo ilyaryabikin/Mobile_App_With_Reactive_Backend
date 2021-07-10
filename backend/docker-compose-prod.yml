@@ -1,0 +1,44 @@
+version: '3.5'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile-prod
+    depends_on:
+      - mongo
+      - mongo-express
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    restart: always
+    ports:
+      - '9080:9080'
+
+  mongo:
+    image: mongo:4.4-bionic
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: C9X46qzeB7ZaNcu6
+      MONGO_INITDB_DATABASE: mobile
+    volumes:
+      - './mongodata:/data/db'
+    ports:
+      - '9017:27017'
+
+  mongo-express:
+    image: mongo-express:latest
+    depends_on:
+      - mongo
+    restart: always
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: user
+      ME_CONFIG_BASICAUTH_PASSWORD: vcHuqgGP8L3b
+      ME_CONFIG_MONGODB_SERVER: mongo
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_SITE_BASEURL: /
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: 'true'
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: C9X46qzeB7ZaNcu6
+    ports:
+      - '9081:8081'
